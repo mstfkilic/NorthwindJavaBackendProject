@@ -3,15 +3,19 @@ package kodlamaio.northwind.entities.concretes;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import lombok.Data;
 
 @Entity
 @Table(name="products")
 public class Product {
 	
+	
 	@Id
-	@GeneratedValue  // Id'nin nasıl artırılacağını belirlemek için kullanılır.
+	@GeneratedValue(strategy = GenerationType.IDENTITY) // Postgre'de id'nin nasıl artacağını göstermek için  // Id'nin nasıl artırılacağını belirlemek için kullanılır.
 	@Column(name="product_id")
 	private int id;
 	
