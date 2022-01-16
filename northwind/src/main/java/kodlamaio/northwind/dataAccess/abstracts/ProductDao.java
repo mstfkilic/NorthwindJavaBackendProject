@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import kodlamaio.northwind.entities.concretes.Product;
+import kodlamaio.northwind.entities.dtos.ProductWithCategoryDto;
 
 public interface ProductDao extends JpaRepository<Product,Integer>{
 	
@@ -26,4 +27,11 @@ public interface ProductDao extends JpaRepository<Product,Integer>{
 	// select * from products where product_name = anything and category_id = anything
 	@Query("From Product where productName=:productName and category.categoryId=:categoryId")
 	List<Product>getByNameAndCategory(String productName,int categoryId);
+	
+	// yazarken her zaman one to many git. Burada category'den product'a gidilecek.
+	
+	//select p.product_id,p.product_name,c.categoryName  from Category c inner join Product p
+	//on c.category_id = p.category_id
+	@Query("Select new kodlamaio.northwind.entities.dtos.ProductWithCategoryDto(p.id,p.productName,c.categoryName) From Category c Inner Join c.products p ")
+	List<ProductWithCategoryDto>getProductWithCategoryDetails();
 }
